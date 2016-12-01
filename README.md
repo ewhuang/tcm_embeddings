@@ -1,12 +1,12 @@
 # tcm_embeddings
-TCM project with embeddings.
 
-Author: Edward Huang
+### Author: Edward Huang
 
-Project for machine translation between symptoms and herbs in TCM stomach data.
+### Project for machine translation between symptoms and herbs in TCM stomach
+    data.
 
 
-_________________________________PREPROCESSING__________________________________
+# Preprocessing
 
 1.  Generates the preliminary results that shows the conditional probabilities
     of both symptoms on herbs and herbs on symptoms.
@@ -27,8 +27,8 @@ ___________________________MED2VEC PRELIMINARY TESTING_________________________
     
     $ wc -ll ./results/code_list.txt
 
-3.  This output becomes num_codes. Run med2vec on our inputs.
-
+3.  This output becomes num_codes. Run med2vec on our inputs
+m.
     $ python med2vec.py ./results/med2vec_input_baseline.pickle num_codes
                             ./results/med2vec_output/%s_model % (baseline,
                                                             separated)
