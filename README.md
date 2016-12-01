@@ -2,8 +2,7 @@
 
 ### Author: Edward Huang
 
-### Project for machine translation between symptoms and herbs in TCM stomach
-### data.
+### Project for machine translation between symptoms and herbs in TCM stomach data.
 
 
 ## Preprocessing
@@ -11,7 +10,8 @@
 1.  Generates the preliminary results that shows the conditional probabilities
     of both symptoms on herbs and herbs on symptoms.
 
-    ```$ python compute_conditional_probabilities.py
+    ```bash
+    $ python compute_conditional_probabilities.py
     ```
 
 
@@ -22,15 +22,20 @@
     condition where each visit is separated into a symptom visit followed by
     an herb visit.
 
-    ```$ python create_med2vec_input.py```
+    ```bash
+    $ python create_med2vec_input.py
+    ```
 
 2.  Find how many unique symptoms and herbs there are.
     
-    ```$ wc -ll ./results/code_list.txt```
+    ```bash
+    $ wc -ll ./results/code_list.txt
+    ```
 
 3.  This output becomes num_codes. Run med2vec on our inputs.
 
-    ```$ python med2vec.py ./results/med2vec_input_baseline.pickle num_codes
+    ```bash
+    $ python med2vec.py ./results/med2vec_input_baseline.pickle num_codes
                             ./results/med2vec_output/%s_model % (baseline,
                                                             separated)
     $ python pmi_med2vec.py ...
@@ -41,7 +46,8 @@
 
 4.  Get the top 10 most similar pairs of vectors.
 
-    ```$ python get_most_similar_med2vec_pairs.py baseline_epoch_num, separated_
+    ```bash
+    $ python get_most_similar_med2vec_pairs.py baseline_epoch_num, separated_
                 epoch_num pmi<optional>
     ```
 
@@ -50,7 +56,8 @@
 
 5. Get the top similar pairs from a co-occurrence matrix into SVD baseline.
 
-    ```$ python cooccurrence_svd_baseline.py
+    ```bash
+    $ python cooccurrence_svd_baseline.py
     ```
     
 
