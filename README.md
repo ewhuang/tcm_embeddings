@@ -2,16 +2,14 @@
 
 ### Author: Edward Huang
 
-### Project for machine translation between symptoms and herbs in TCM stomach
-    data.
+### Project for machine translation between symptoms and herbs in TCM stomach data.
 
 
 # Preprocessing
 
-1.  Generates the preliminary results that shows the conditional probabilities
-    of both symptoms on herbs and herbs on symptoms.
+1.  Generates the preliminary results that shows the conditional probabilities of both symptoms on herbs and herbs on symptoms.
 
-    $ python compute_conditional_probabilities.py
+...$ python compute_conditional_probabilities.py
 
 
 ___________________________MED2VEC PRELIMINARY TESTING_________________________
