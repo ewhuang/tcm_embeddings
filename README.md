@@ -29,19 +29,17 @@
 2.  Find how many unique symptoms and herbs there are.
     
     ```bash
-    $ wc -ll ./results/code_list.txt
+    $ python run_med2vec.py baseline/separated
     ```
 
-3.  This output becomes num_codes. Run med2vec on our inputs.
+3.  Run med2vec on our inputs.
 
     ```bash
-    $ python med2vec.py ./results/med2vec_input_baseline.pickle num_codes
-                            ./results/med2vec_output/%s_model % (baseline, separated)
-    $ python pmi_med2vec.py ...
+    $ python run_med2vec.py baseline/separated pmi<optional>
     ```
 
-    Same input as med2vec.py. We optimize PMI instead of the conditional
-    probability for word embeddings (equation 4 of the med2vec paper).
+    pmi optional argument optimizes pointwise mutual information instead of
+    the default conditional probability of med2vec.
 
 4.  Get the top 10 most similar pairs of vectors.
 

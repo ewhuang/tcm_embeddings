@@ -150,7 +150,7 @@ def main():
     # double_pickle_list means the symptoms are a visit, followed by the herbs.
     pickle_list, double_pickle_list = make_pickle_lists(patient_dct, code_list)
 
-    with open('./results/med2vec_input_baseline.pickle', 'wb') as out:
+    with open('./results/med2vec_input_baseline_visits.pickle', 'wb') as out:
         cPickle.dump(pickle_list, out)
     with open('./results/med2vec_input_separated_visits.pickle', 'wb') as out:
         cPickle.dump(double_pickle_list, out)
