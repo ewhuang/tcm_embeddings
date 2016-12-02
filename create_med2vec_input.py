@@ -4,17 +4,17 @@
 ### Author: Edward Huang
 
 from collections import OrderedDict
-from datetime import datetime
+import datetime
 import cPickle
 import os
 import time
 
 date_format = '%Y-%m-%d'
 
-### This script writes out a file of the format stiupated by the med2vec page.
+### This script writes out a file of the format stipulated by the med2vec page.
 ### https://github.com/mp2893/med2vec
 ### Uses the TCM data list to create the data matrix.
-### Run time: 5.6 seconds.
+### Run time: 5 seconds.
 
 def get_patient_dct():
     '''
@@ -35,8 +35,9 @@ def get_patient_dct():
         
         diagnosis_date = diagnosis_date.split('，')[1][:len('xxxx-xx-xx')]
         # Format the diagnosis date.
-        diagnosis_date = datetime.strptime(diagnosis_date, date_format)
+        diagnosis_date = datetime.datetime.strptime(diagnosis_date, date_format)
 
+        # Take out the trailing colon.
         symptom_list = symptoms.split(':')[:-1]
         herb_list = herbs.split(':')[:-1]
         if len(symptom_list) == 0 or len(herb_list) == 0:
@@ -46,6 +47,10 @@ def get_patient_dct():
         key = (name, dob)
         if key not in patient_dct:
             patient_dct[key] = {}
+        # If multiple visits in one day, add on one second to each day.
+        while diagnosis_date in patient_dct[key]:
+            diagnosis_date += datetime.timedelta(0,1)
+        # list(set()) removes duplicates.
         patient_dct[key][diagnosis_date] = (disease_list, list(set(symptom_list
             )), list(set(herb_list)))
     f.close()
@@ -89,7 +94,7 @@ def get_symptom_and_herb_counts(patient_dct):
 
     return list(set(symptom_count_dct.keys()).union(herb_count_dct.keys()))
 
-def make_pickle_list(patient_dct, code_list):
+def make_pickle_lists(patient_dct, code_list):
     '''
     Given a patient dictionary, make a list of lists. Each inner list 
     corresponds to a patient visit. The symptoms and herbs must be mapped to
@@ -129,11 +134,21 @@ def write_code_list(code_list):
         out.write('%s\n' % code)
     out.close()
 
+def generate_directories():
+    results_dir = './results/'
+    if not os.path.exists(results_dir):
+        os.makedirs(results_dir)
+    med2vec_directory = './results/med2vec_output'
+    if not os.path.exists(med2vec_directory):
+        os.makedirs(med2vec_directory)
+
 def main():
-    # patient_dct, code_list = get_patient_dct()
+    generate_directories()
     patient_dct = get_patient_dct()
     code_list = get_symptom_and_herb_counts(patient_dct)
-    pickle_list, double_pickle_list = make_pickle_list(patient_dct, code_list)
+    # pickle_list contains visits that have symptoms and herbs joined.
+    # double_pickle_list means the symptoms are a visit, followed by the herbs.
+    pickle_list, double_pickle_list = make_pickle_lists(patient_dct, code_list)
 
     with open('./results/med2vec_input_baseline.pickle', 'wb') as out:
         cPickle.dump(pickle_list, out)
@@ -141,10 +156,6 @@ def main():
         cPickle.dump(double_pickle_list, out)
 
     write_code_list(code_list)
-
-    med2vec_directory = './results/med2vec_output'
-    if not os.path.exists(med2vec_directory):
-        os.makedirs(med2vec_directory)
 
 if __name__ == '__main__':
     start_time = time.time()

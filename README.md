@@ -36,8 +36,7 @@
 
     ```bash
     $ python med2vec.py ./results/med2vec_input_baseline.pickle num_codes
-                            ./results/med2vec_output/%s_model % (baseline,
-                                                            separated)
+                            ./results/med2vec_output/%s_model % (baseline, separated)
     $ python pmi_med2vec.py ...
     ```
 
@@ -63,5 +62,6 @@
 
 6. Run this after med2vec input in order to create the visit binary matrix.
 
-    ```$ python visit_binary_matrix.py
+    ```bash
+    $ python visit_binary_matrix.py
     ```
