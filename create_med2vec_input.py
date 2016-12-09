@@ -26,16 +26,16 @@ def get_patient_dct():
     patient_dct = OrderedDict({})
     f = open('./data/HIS_tuple_word.txt', 'r')
     for i, line in enumerate(f):
-        diseases, name, dob, diagnosis_date, symptoms, herbs = line.split('\t')
+        diseases, name, dob, visit_date, symptoms, herbs = line.split('\t')
         if name == 'null' or dob == 'null':
             continue
         # Always ends with a colon, so the last element of the split will be
         # the empty string.
         disease_list = diseases.split(':')[:-1]
         
-        diagnosis_date = diagnosis_date.split('，')[1][:len('xxxx-xx-xx')]
+        visit_date = visit_date.split('，')[1][:len('xxxx-xx-xx')]
         # Format the diagnosis date.
-        diagnosis_date = datetime.datetime.strptime(diagnosis_date, date_format)
+        visit_date = datetime.datetime.strptime(visit_date, date_format)
 
         # Take out the trailing colon.
         symptom_list = symptoms.split(':')[:-1]
@@ -48,10 +48,10 @@ def get_patient_dct():
         if key not in patient_dct:
             patient_dct[key] = {}
         # If multiple visits in one day, add on one second to each day.
-        while diagnosis_date in patient_dct[key]:
-            diagnosis_date += datetime.timedelta(0,1)
+        while visit_date in patient_dct[key]:
+            visit_date += datetime.timedelta(0,1)
         # list(set()) removes duplicates.
-        patient_dct[key][diagnosis_date] = (disease_list, list(set(symptom_list
+        patient_dct[key][visit_date] = (disease_list, list(set(symptom_list
             )), list(set(herb_list)))
     f.close()
 

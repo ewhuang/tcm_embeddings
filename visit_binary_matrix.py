@@ -4,6 +4,7 @@ import cPickle
 
 # This script creates the visit binary matrix. Must run create_med2vec_input.py
 # first.
+# Run time: 5 seconds.
 
 def read_code_list():
     '''
@@ -32,7 +33,7 @@ def convert_to_binary_matrix(patient_matrix, code_list):
 
 def main():
     code_list = read_code_list()
-    f = open('./results/med2vec_input_baseline.pickle', 'r')
+    f = open('./results/med2vec_input_baseline_visits.pickle', 'r')
     patient_matrix = cPickle.load(f)
     f.close()
     binary_matrix = convert_to_binary_matrix(patient_matrix, code_list)

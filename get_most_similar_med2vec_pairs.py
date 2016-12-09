@@ -10,6 +10,10 @@ from scipy.spatial.distance import pdist, squareform
 import sys
 import time
 
+### Reads the embedding vectors created by med2vec and then outputs files
+### that show the most similar pairs of medical codes.
+### Run time: 30 seconds.
+
 def read_npz_file(last_epoch, model_type):
     '''
     Given the string of a last epoch number, read the file for a given med2vec

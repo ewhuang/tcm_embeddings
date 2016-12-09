@@ -20,21 +20,21 @@ def get_num_codes():
     return num_codes
 
 def main():
-    if len(sys.argv) not in [3, 4]:
+    if len(sys.argv) not in [2, 3]:
         print ('Usage:python %s model_type pmi<optional>' % sys.argv[0])
         exit()
     model_type = sys.argv[1]
     assert model_type in ['baseline', 'separated']
     pmi = ''
-    if len(sys.argv) == 4:
+    if len(sys.argv) == 3:
         pmi = 'pmi_'
 
     visit_file = './results/med2vec_input_%s_visits.pickle' % model_type
     num_codes = get_num_codes()
     output_file = './results/med2vec_output/%s%s_model' % (pmi, model_type)
 
-    command = 'python %smed2vec.py %s %d %s' % (pmi, visit_file, num_codes,
-        output_file)
+    command = 'python %smed2vec.py %s --n_epoch 500 %d %s' % (pmi, visit_file,
+        num_codes, output_file)
     subprocess.call(command, shell=True)
 
 if __name__ == '__main__':
