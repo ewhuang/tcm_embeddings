@@ -76,5 +76,8 @@ Clone the repository from the [Raphael Group GitHub](https://github.com/raphael-
 2.  Runs WExt on the dataset.
 
     ```bash
-    $ python weighted_exclusivity_most_similar_pairs.py
+    $ python weighted_exclusivity_most_similar_pairs.py set_size
     ```
+
+    Outputs ./results/wext/3_set_output-sampled-sets-chinese.tsv
+    where 3 can be replaced by set_size.
